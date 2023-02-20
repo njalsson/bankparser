@@ -22,6 +22,13 @@ class Item:
         self.holder = holder
 
 
+    def __ge__(self, other):
+        return self.name > other.name
+
+    def __lt__(self, other):
+        return self.name < other.name
+
+
 class parseBank:
     def __init__(self, player):
         self.bank = {}
@@ -62,8 +69,8 @@ class parseBank:
         self.sheet.write(0, 1, 'Name')
         self.sheet.write(0, 2, 'Url')
         self.sheet.write(0, 3, 'Holder')
-        for item in self.bank.values() :     
-      
+        for item in sorted(self.bank.values()) :     
+            # print(item.name)
             # write operation perform     
             self.sheet.write(row, 0, item.quantity)
             self.sheet.write(row, 1, item.name)
