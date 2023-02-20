@@ -6,10 +6,6 @@ import datetime
 player = 'peanuts' # change this
 
 
-
-
-
-
 if os.path.exists("todaysBank.xlsx"):
     os.remove("todaysBank.xlsx")
 
@@ -21,9 +17,6 @@ class Item:
         self.url = url
         self.holder = holder
 
-
-    def __ge__(self, other):
-        return self.name > other.name
 
     def __lt__(self, other):
         return self.name < other.name
@@ -42,18 +35,18 @@ class parseBank:
                 if line[0] == "*" or line[0] == '\n':
                     pass
                 else:
-                    line = line[2:]
-                    quantity, rest = line.split('[')
-                    quantity = quantity[:-1]
-                    name, rest = rest.split(']')
-                    url = rest[1:-1]
-                    # print(quantity, name, url)
-                    a = Item(quantity, name, url, 'peanuts')
+                    line = line[2:] # first two chars always junk
+                    quantity, rest = line.split('[') # split the quantity off
+                    quantity = quantity[:-1] # take the x after the number.
+                    name, rest = rest.split(']') # split name from rest
+                    url = rest[1:-1] # remove () from around the link
+
+                    tempo = Item(quantity, name, url, 'peanuts')
                             
-                    if a.name in self.bank:
-                        self.bank[a.name].quantity = int(self.bank[a.name].quantity) + int(a.quantity)
+                    if tempo.name in self.bank:
+                        self.bank[tempo.name].quantity = int(self.bank[tempo.name].quantity) + int(tempo.quantity)
                     else:
-                        self.bank[a.name] = a
+                        self.bank[tempo.name] = tempo
 
 
 
@@ -91,6 +84,5 @@ class parseBank:
 
 bank = parseBank(player)
 bank.parse('bank.txt')
-bank.printBank()
+# bank.printBank()
 bank.writeBankToXlsx()
-# ite = item()
