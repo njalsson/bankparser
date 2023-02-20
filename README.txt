@@ -1,4 +1,4 @@
-# Guild bank parser that formats data into a excel sheet
+#Guild bank parser that formats data into a excel sheet
 
 I was too lazy to manually update the data in the bank, i did it once and it was horrible. so i wrote a program to do it for me 
 
